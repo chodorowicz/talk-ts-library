@@ -1,0 +1,18 @@
+{
+  "name": "talk-ts-library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "keywords": [],
+  "author": "Jakub Chodorowicz <chodorowicz@gmail.com> (https://jakub.chodorowicz.pl/)",
+  "license": "ISC",
+  "devDependencies": {
+    "microbundle": "^0.9.0",
+    "np": "^4.0.2",
+    "typescript": "^3.2.4"
+  }
+}

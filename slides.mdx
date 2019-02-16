@@ -1,5 +1,6 @@
 import { condensed } from 'mdx-deck/themes'
 import twilight from 'react-syntax-highlighter/styles/prism/twilight'
+import { CodeSurfer } from "mdx-deck-code-surfer"
 
 
 export const theme = {
@@ -35,6 +36,19 @@ import { debounce } from 'ts-debounce';
 const debouncedFunction = debounce(originalFunction, waitMilliseconds, options);
 ```
 
+---
+
+  <CodeSurfer
+    title="First things first"
+    code={require("!raw-loader!./slides/example.js")}
+    lang="js"
+    showNumbers={false}
+    dark={false}
+    steps={[
+      { lines: [2], notes: "name of pacakge" },
+      { lines: [3], notes: "version" }
+    ]}
+/>
 ---
 
 ## What do you need

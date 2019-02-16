@@ -6,14 +6,17 @@
   "scripts": {
     "build": "microbundle",
     "dev": "microbundle watch",
-    "release": "np"
+    "release": "np",
+    "slides": "mdx-deck slides.mdx"
   },
   "keywords": [],
   "author": "Jakub Chodorowicz <chodorowicz@gmail.com> (https://jakub.chodorowicz.pl/)",
   "license": "ISC",
   "devDependencies": {
     "mdx-deck": "^1.8.2",
+    "mdx-deck-code-surfer": "0.5.5",
     "microbundle": "^0.9.0",
-    "np": "^4.0.2"
+    "np": "^4.0.2",
+    "raw-loader": "1.0.0"
   }
 }

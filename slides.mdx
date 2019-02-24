@@ -20,7 +20,7 @@ export const theme = {
   }
 }
 
-# Creating library in TypeScript
+# TypeScript library cookbook
 
 <small>Jakub Chodorowicz<br/> github.com/chodorowicz</small>
 
@@ -37,18 +37,43 @@ const debouncedFunction = debounce(originalFunction, waitMilliseconds, options);
 ```
 
 ---
-
-  <CodeSurfer
-    title="First things first"
-    code={require("!raw-loader!./slides/example.js")}
-    lang="js"
-    showNumbers={false}
-    dark={false}
-    steps={[
-      { lines: [2], notes: "name of pacakge" },
-      { lines: [3], notes: "version" }
-    ]}
+<div style={{ fontSize: '30px'}}>
+<CodeSurfer
+  title="First things first"
+  code={require("!!raw-loader!./slides/example.js")}
+  showNumbers={true}
+  steps={[
+    { lines: [2], notes: "name" },
+    { lines: [3], notes: "version" },
+    { lines: [4], notes: "description" },
+    { lines: [5], notes: "keywords" },
+    { lines: [6], notes: "homepage" },
+    { lines: [7,8,9], notes: "bugs" },
+    { lines: [10], notes: "files" },
+    { lines: [11], notes: "licence" },
+    { lines: [12], notes: "main module" },
+  ]}
 />
+</div>
+
+```notes
+- MIT:
+  - open and permissible,
+  - no-brainer / simple,
+  - allows both free and commercial re-use,
+  - short,
+  - clearly gives you copyright,
+  - well-known and widely used.
+- files
+  - files which will be added to the tarball when it’s packed. 
+  - Omitting the field will make it default to ["*"], which means it will include all files.
+  - can use `.npmignore` field, `.gitignore` is also respected
+  - remove probably test folder from the tarball
+  - Certain files are always included, regardless of settings:
+    - package.json, README, CHANGES / CHANGELOG / HISTORY, LICENSE / LICENCE, NOTICE, The file in the “main” field
+    - excluded: .git, .DS_Store, node_modules,...
+- main module
+```
 ---
 
 ## What do you need
@@ -141,7 +166,7 @@ https://medium.com/@kelin2025/so-you-wanna-use-es6-modules-714f48b3a953
 - Reinstalls dependencies to ensure your project works with the latest dependency tree
 - Runs the tests
 - Bumps the version in package.json and npm-shrinkwrap.json (if present) and creates a git tag
-- Publishes the new version to npm, optionally under a dist-tag
+- Publishes the new version to npm
 - Pushes commits and tags to GitHub/GitLab
 - Opens a prefilled GitHub Releases draft after publish
 

@@ -52,6 +52,10 @@ const debouncedFunction = debounce(originalFunction, waitMilliseconds, options);
     { lines: [10], notes: "files" },
     { lines: [11], notes: "licence" },
     { lines: [12], notes: "main module" },
+    { lines: [13], notes: "ES2015 modules build" },
+    { lines: [14], notes: "browser build" },
+    { lines: [15], notes: "optional types path" },
+    { lines: [16], notes: "author" }
   ]}
 />
 </div>
@@ -73,7 +77,15 @@ const debouncedFunction = debounce(originalFunction, waitMilliseconds, options);
     - package.json, README, CHANGES / CHANGELOG / HISTORY, LICENSE / LICENCE, NOTICE, The file in the “main” field
     - excluded: .git, .DS_Store, node_modules,...
 - main module
+  - module https://webpack.js.org/guides/author-libraries/#final-steps
+  - https://github.com/rollup/rollup/wiki/pkg.module
+  - Michael Jackson files: https://medium.com/the-node-js-collection/an-update-on-es6-modules-in-node-js-42c958b890c
+- types
+  > Also note that if your main declaration file is named index.d.ts and lives at the root of the package (next to index.js) you do not need to mark the "types" property, though it is advisable to do so
+- files
+  - If the "files" and "include" are both left unspecified, the compiler defaults to including all TypeScript (.ts, .d.ts and .tsx)
 ```
+
 ---
 
 ## What do you need
@@ -99,29 +111,15 @@ mkdir src && cd src && touch index.ts
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "esModuleInterop": true
+    "esModuleInterop": true, // if needed
+    "declarationMap": true
+    // other important declaration can be left out when using microbundle
   }
 }
 ```
 
----
-
-## Rollup and microbundle enforced config
-
-```
-noEmitHelpers: false
-importHelpers: true
-noResolve: false
-noEmit: false
-inlineSourceMap: false
-outDir: taken from package.json `main`
-target: 'esnext' // because it's tranpiled by babel
-```
-
 ```notes
-microbundle config: https://github.com/developit/microbundle/blob/master/src/index.js#L404
-https://github.com/ezolenko/rollup-plugin-typescript2
-- outDir - taken from main in package.json
+Emit __importStar and __importDefault helpers for runtime babel ecosystem compatibility and enable --allowSyntheticDefaultImports for typesystem compatibility.
 
 ```
 
@@ -142,6 +140,72 @@ https://github.com/ezolenko/rollup-plugin-typescript2
 
 https://medium.com/@kelin2025/so-you-wanna-use-es6-modules-714f48b3a953
 ```
+
+---
+
+## Rollup and microbundle enforced config
+
+```
+noEmitHelpers: false
+importHelpers: true // required tslib, provided by rollup-plugin-typescript2
+noResolve: false
+noEmit: false
+inlineSourceMap: false
+outDir: taken from package.json `main`
+target: 'esnext' // because it's transpiled by babel
+declaration: true // generate d.ts files
+sourceMap: true
+```
+
+```notes
+microbundle config: https://github.com/developit/microbundle/blob/master/src/index.js#L454
+https://github.com/ezolenko/rollup-plugin-typescript2
+- outDir - taken from main in package.json
+https://github.com/developit/microbundle/blob/master/src/index.js#L454
+
+generally this setting should be good if using just TS
+"importHelpers": true, // importing helper functions from tslib
+"noEmitHelpers": true, // disable emitting inline helper functions
+```
+
+---
+https://github.com/developit/microbundle/blob/master/src/index.js#L454
+
+![](slides/__assets__/microbundle-ts-options.jpg)
+
+---
+
+## Target 🎯 - what is downleveling
+
+- ES3/ES5 downleveling
+
+![](slides/__assets__/async-downleveling.jpg)
+
+---
+
+##  What should be the target
+
+- ES5 should be good from most cases 
+- https://kangax.github.io/compat-table/es5/
+- https://caniuse.com/#search=es5
+
+![](slides/__assets__/es5.jpg)
+
+---
+
+## Controll what you're publishing
+
+- using `.gitignore` and `.npmignore` (blacklisting) considered dangerous
+- better use `files` in package.json
+- use `npm-packlist` to verify your files
+
+---
+
+## npm-packlist
+
+- `tar tvf $(npm pack)`
+
+![](slides/__assets__/npm-packlist.jpg)
 
 ---
 
@@ -180,6 +244,60 @@ https://medium.com/@kelin2025/so-you-wanna-use-es6-modules-714f48b3a953
     "build": "microbundle",
     "dev": "microbundle watch",
     "release": "np"
+  }
+}
+```
+
+---
+
+## Backward types compability
+
+- use `typesVersions` (available since TS 3.1)
+
+```ts
+{
+  "name": "package-name",
+  "version": "1.0",
+  "types": "./index.d.ts",
+  "typesVersions": {
+    ">=3.2": { "*": ["ts3.2/*"] },
+    ">=3.1": { "*": ["ts3.1/*"] }
+  }
+}
+```
+
+---
+
+## Backward types compability
+
+![](slides/__assets__/info-about-compability.jpg)
+
+---
+
+## Backward types compability - other ideas
+
+🤔💭 peerDependencies...
+
+---
+
+## Testing in Typescript of course
+
+- `npm install --save-dev jest ts-jest @types/jest`
+
+```json
+{
+  "scripts": {
+    "test: "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(src/__tests__/.*|(\\.|/)(test|spec))\\.ts$",
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ]
   }
 }
 ```

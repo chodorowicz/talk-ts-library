@@ -15,7 +15,10 @@
   "devDependencies": {
     "mdx-deck": "^1.8.2",
     "mdx-deck-code-surfer": "0.5.5",
+    "microbundle": "0.10.1",
+    "np": "4.0.2",
     "raw-loader": "1.0.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "files": ["dist/**/*"]
 }

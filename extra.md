@@ -14,8 +14,6 @@
 - https://github.com/WrocTypeScript/
 - https://github.com/karol-majewski/create-typescript-library
   
-- [ ] module browser keys in package.json
-  - [ ] https://github.com/piotrwitek/typesafe-actions/blob/master/package.json
 - [ ] Jest & testing
 - [ ] CI
 - [ ] Build with TS + Rollup only - mention
@@ -73,3 +71,8 @@
 
 - https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-9.html
 - > In other words, hitting go-to-definition on a declaration from a .d.ts file generated with --declarationMap will take you to the source file (.ts) location where that declaration was defined, and not to the .d.ts.
+
+## Module browser keys in package.json
+
+- [ ] module browser keys in package.json
+  - [ ] https://github.com/piotrwitek/typesafe-actions/blob/master/package.json

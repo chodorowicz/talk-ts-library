@@ -22,7 +22,11 @@ export const theme = {
 
 # TypeScript library cookbook
 
-<small>Jakub Chodorowicz<br/> github.com/chodorowicz</small>
+<small>
+  Jakub Chodorowicz<br/> 
+  github.com/chodorowicz <br/>
+  twitter @chodorowicz
+</small>
 
 ---
 
@@ -37,6 +41,7 @@ const debouncedFunction = debounce(originalFunction, waitMilliseconds, options);
 ```
 
 ---
+
 <div style={{ fontSize: '30px'}}>
 <CodeSurfer
   title="First things first"
@@ -98,12 +103,17 @@ npm i --D microbundle np
 mkdir src && cd src && touch index.ts
 ```
 
+```notes
+Jason Miller
+Sindre Sorhus
+```
+
 ---
 
 ## Configure TypeScript
 
 - not much here to do `¯\_(ツ)_/¯`
-- microbundle/rollup enforces most of options
+- microbundle/rollup-plugin-typescript2 enforces most of options
 
 ```json
 {
@@ -152,7 +162,7 @@ noResolve: false
 noEmit: false
 inlineSourceMap: false
 outDir: taken from package.json `main`
-target: 'esnext' // because it's transpiled by babel
+target: 'esnext' // because it's transpiled by babel and Bublé
 declaration: true // generate d.ts files
 sourceMap: true
 ```
@@ -166,9 +176,13 @@ https://github.com/developit/microbundle/blob/master/src/index.js#L454
 generally this setting should be good if using just TS
 "importHelpers": true, // importing helper functions from tslib
 "noEmitHelpers": true, // disable emitting inline helper functions
+
+- noResolve
+  - not add triple-slash references or module import targets to the list of compiled files.
 ```
 
 ---
+
 https://github.com/developit/microbundle/blob/master/src/index.js#L454
 
 ![](slides/__assets__/microbundle-ts-options.jpg)
@@ -209,6 +223,31 @@ https://github.com/developit/microbundle/blob/master/src/index.js#L454
 
 ---
 
+## Everybody makes mistakes 😔
+
+- https://unpkg.com/ts-debounce@1.0.0/
+
+```notes
+present https://unpkg.com/ts-debounce@1.0.0/
+```
+
+---
+
+## Publishing steps
+
+- prerequisite: npm account
+- Ensure you are publishing from the master branch
+- Ensure the working directory is clean and that there are no unpulled changes
+- Reinstall dependencies to ensure your project works with the latest dependency tree
+- Run the tests
+- Bump the version in package.json and npm-shrinkwrap.json (if present) and creates a git tag
+- Publish the new version to npm
+- Push commits and tags to GitHub/GitLab
+- release notes on GitGub
+
+---
+
+
 ## np
 
 - better `npm publish`
@@ -220,19 +259,6 @@ https://github.com/developit/microbundle/blob/master/src/index.js#L454
 ## interactive np
 
 <img src="slides/__assets__/np-interactive.png" height={500} style={{ height: "80vh" }} />
-
----
-
-## What does it do?
-
-- Ensures you are publishing from the master branch
-- Ensures the working directory is clean and that there are no unpulled changes
-- Reinstalls dependencies to ensure your project works with the latest dependency tree
-- Runs the tests
-- Bumps the version in package.json and npm-shrinkwrap.json (if present) and creates a git tag
-- Publishes the new version to npm
-- Pushes commits and tags to GitHub/GitLab
-- Opens a prefilled GitHub Releases draft after publish
 
 ---
 
@@ -284,7 +310,12 @@ https://github.com/developit/microbundle/blob/master/src/index.js#L454
 
 - `npm install --save-dev jest ts-jest @types/jest`
 
-```json
+---
+
+<div style={{ fontSize: '30px'}}>
+<CodeSurfer
+  title="First things first"
+  code={`
 {
   "scripts": {
     "test: "jest"
@@ -296,11 +327,64 @@ https://github.com/developit/microbundle/blob/master/src/index.js#L454
     "testRegex": "(src/__tests__/.*|(\\.|/)(test|spec))\\.ts$",
     "moduleFileExtensions": [
       "js",
-      "ts"
+      "ts",
+      "tsx"
+    ]
+  }
+}
+  `}
+  showNumbers={true}
+/>
+</div>
+
+
+---
+
+## Bonus extra round - Pika Pack
+
+- extensible microbundle + np on one package 🏋️‍
+
+---
+
+## Config
+
+```
+// Before: Your top-level package.json manifest:
+{
+  "name": "simple-package",
+  "version": "1.0.0",
+  "@pika/pack": {
+    "pipeline": [
+      ["@pika/plugin-standard-pkg", {"exclude": ["__tests__/*"]}],
+      ["@pika/plugin-build-node"],
+      ["@pika/plugin-build-web"]
     ]
   }
 }
 ```
+
+---
+
+### Pika demo
+
+```notes
+npx pack build
+npx pack publish 
+```
+
+---
+
+## Publish = np
+
+![](slides/__assets__/pika-pack.gif)
+
+---
+
+## What else
+
+- CI (e.g. Travis CI)
+- test coverage (e.g. Codecov)
+- keeping dependencies up to date (e.g. Greenkeeper)
 
 ---
 

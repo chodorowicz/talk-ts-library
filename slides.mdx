@@ -211,13 +211,14 @@ https://github.com/developit/microbundle/blob/master/src/index.js#L454
 
 - using `.gitignore` and `.npmignore` (blacklisting) considered dangerous
 - better use `files` in package.json
-- use `npm-packlist` to verify your files
+- use `npm-packlist` to verify your files programtically
+- use `npm pack`
 
 ---
 
 ## npm-packlist
 
-- `tar tvf $(npm pack)`
+- `npm pack --dry-run`
 
 ![](slides/__assets__/npm-packlist.jpg)
 

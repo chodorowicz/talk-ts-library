@@ -42,28 +42,28 @@ const debouncedFunction = debounce(originalFunction, waitMilliseconds, options);
 
 ---
 
-<div style={{ fontSize: '30px'}}>
-<CodeSurfer
-  title="First things first"
-  code={require("!!raw-loader!./slides/example.js")}
-  showNumbers={true}
-  steps={[
-    { lines: [2], notes: "name" },
-    { lines: [3], notes: "version" },
-    { lines: [4], notes: "description" },
-    { lines: [5], notes: "keywords" },
-    { lines: [6], notes: "homepage" },
-    { lines: [7,8,9], notes: "bugs" },
-    { lines: [10], notes: "files" },
-    { lines: [11], notes: "licence" },
-    { lines: [12], notes: "main module" },
-    { lines: [13], notes: "ES2015 modules build" },
-    { lines: [14], notes: "browser build" },
-    { lines: [15], notes: "optional types path" },
-    { lines: [16], notes: "author" }
-  ]}
-/>
-</div>
+## First things first
+
+```json
+{
+  "name": "your-package-name",
+  "version": "0.1.0",
+  "description": "🚀☘🍄",
+  "keywords": [],
+  "homepage": "https://github.com/chodorowicz/ts-debounce",
+  "bugs": { 
+    "url" : "https://github.com/chodorowicz/ts-debounce/issues"
+  }
+  "files": ["array", "of", "file", "patterns"], // defaults to ["*"]
+  "license": "MIT",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.m.js",
+  "browser": "dist/src/index.umd.js",
+  "types": "// can be left out if index.d.ts in root",
+  "author": "Jakub Chodorowicz <chodorowicz@gmail.com> (https://jakub.chodorowicz.pl/)"
+}
+
+```
 
 ```notes
 - MIT:
@@ -313,10 +313,9 @@ present https://unpkg.com/ts-debounce@1.0.0/
 
 ---
 
-<div style={{ fontSize: '30px'}}>
-<CodeSurfer
-  title="First things first"
-  code={`
+## TypeScript Jest config
+
+```json
 {
   "scripts": {
     "test: "jest"
@@ -333,10 +332,7 @@ present https://unpkg.com/ts-debounce@1.0.0/
     ]
   }
 }
-  `}
-  showNumbers={true}
-/>
-</div>
+```
 
 
 ---
@@ -375,7 +371,7 @@ npx pack publish
 
 ---
 
-## Publish = np
+## Publish with Pika
 
 ![](slides/__assets__/pika-pack.gif)
 

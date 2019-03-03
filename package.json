@@ -7,7 +7,8 @@
     "build": "microbundle",
     "dev": "microbundle watch",
     "release": "np",
-    "slides": "mdx-deck slides.mdx"
+    "slides": "mdx-deck slides.mdx",
+    "pdf": "mdx-deck pdf slides.mdx"
   },
   "keywords": [],
   "author": "Jakub Chodorowicz <chodorowicz@gmail.com> (https://jakub.chodorowicz.pl/)",
